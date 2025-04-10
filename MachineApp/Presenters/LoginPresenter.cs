@@ -20,7 +20,7 @@ namespace MachineApp.Presenters
                 }
                 else
                 {
-                    _view.ShowWelcome(user.Username, user.Role);
+                    _view.ShowWelcome(user.Username, user.RoleName);
                 }
             }
             catch (Exception ex)
