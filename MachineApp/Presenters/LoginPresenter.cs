@@ -1,26 +1,33 @@
-﻿
+﻿using MachineApp.Helpers;
+using MachineApp.Repositories.UserRepository;
 using MachineApp.Views.Login;
-using MachineApp.Repositories;
 
 namespace MachineApp.Presenters
 {
-    public class LoginPresenter(ILoginView view, IUserRepo repo)
+    public class LoginPresenter
     {
-        private readonly ILoginView _view = view;
-        private readonly IUserRepo _repo = repo;
+        private readonly ILoginView _view;
+        private readonly IUserRepo _repo;
 
-        public void Login()
+        public LoginPresenter(ILoginView view, IUserRepo repo)
+        {
+            _view = view;
+            _repo = repo;
+
+            _view.LoginAttempted += OnLoginAttempted;
+        }
+        private void OnLoginAttempted(object? sender, EventArgs e)
         {
             try
             {
                 var user = _repo.GetUser(_view.Username, _view.Password);
                 if (user == null)
-                {
                     _view.ShowError("Invalid username or password.");
-                }
                 else
                 {
-                    _view.ShowWelcome(user.Username, user.RoleName);
+                    _view.LoginSucceeded(user);
+                    Session.SetUpSession(user);
+                    _view.Close();
                 }
             }
             catch (Exception ex)
@@ -28,6 +35,5 @@ namespace MachineApp.Presenters
                 _view.ShowError($"Unexpected error: {ex.Message}");
             }
         }
-
     }
 }

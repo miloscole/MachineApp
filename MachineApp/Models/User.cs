@@ -3,7 +3,7 @@
     public class User
     {
         public int Id { get; set; }
-        public required string Username { get; set; }
-        public required string RoleName { get; set; }
+        public string Username { get; set; } = string.Empty;
+        public string RoleName { get; set; } = string.Empty;
     }
 }

@@ -43,8 +43,8 @@
             // 
             lbLogin.AutoSize = true;
             lbLogin.Font = new Font("Malgun Gothic", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lbLogin.ForeColor = Color.White;
-            lbLogin.Location = new Point(478, 21);
+            lbLogin.Location = new Point(615, 29);
+            lbLogin.Margin = new Padding(4, 0, 4, 0);
             lbLogin.Name = "lbLogin";
             lbLogin.RightToLeft = RightToLeft.Yes;
             lbLogin.Size = new Size(76, 30);
@@ -57,24 +57,25 @@
             txtUsername.BorderStyle = BorderStyle.None;
             txtUsername.Font = new Font("Malgun Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtUsername.ForeColor = Color.White;
-            txtUsername.Location = new Point(294, 105);
+            txtUsername.Location = new Point(378, 156);
+            txtUsername.Margin = new Padding(4);
             txtUsername.Name = "txtUsername";
             txtUsername.PlaceholderText = "USERNAME";
-            txtUsername.Size = new Size(445, 22);
+            txtUsername.Size = new Size(572, 22);
             txtUsername.TabIndex = 1;
             // 
             // btnLogin
             // 
             btnLogin.BackColor = Color.FromArgb(15, 15, 15);
             btnLogin.Cursor = Cursors.Hand;
-            btnLogin.FlatAppearance.BorderColor = SystemColors.ControlDarkDark;
+            btnLogin.FlatAppearance.BorderColor = SystemColors.ControlLight;
             btnLogin.FlatAppearance.MouseOverBackColor = SystemColors.ControlDarkDark;
             btnLogin.FlatStyle = FlatStyle.Flat;
             btnLogin.Font = new Font("Malgun Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnLogin.ForeColor = Color.White;
-            btnLogin.Location = new Point(294, 255);
+            btnLogin.Location = new Point(378, 357);
+            btnLogin.Margin = new Padding(4);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(445, 40);
+            btnLogin.Size = new Size(572, 50);
             btnLogin.TabIndex = 3;
             btnLogin.Text = "LOG IN";
             btnLogin.UseVisualStyleBackColor = false;
@@ -84,16 +85,18 @@
             panLeftSide.BackColor = SystemColors.ControlDarkDark;
             panLeftSide.Dock = DockStyle.Left;
             panLeftSide.Location = new Point(0, 0);
+            panLeftSide.Margin = new Padding(4);
             panLeftSide.Name = "panLeftSide";
-            panLeftSide.Size = new Size(250, 330);
+            panLeftSide.Size = new Size(321, 462);
             panLeftSide.TabIndex = 4;
             // 
             // unUnderline
             // 
-            unUnderline.BackColor = SystemColors.ControlDarkDark;
-            unUnderline.Location = new Point(294, 129);
+            unUnderline.BackColor = SystemColors.ControlLight;
+            unUnderline.Location = new Point(378, 181);
+            unUnderline.Margin = new Padding(4);
             unUnderline.Name = "unUnderline";
-            unUnderline.Size = new Size(445, 1);
+            unUnderline.Size = new Size(572, 1);
             unUnderline.TabIndex = 5;
             // 
             // txtPassword
@@ -102,19 +105,21 @@
             txtPassword.BorderStyle = BorderStyle.None;
             txtPassword.Font = new Font("Malgun Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtPassword.ForeColor = Color.White;
-            txtPassword.Location = new Point(294, 164);
+            txtPassword.Location = new Point(378, 238);
+            txtPassword.Margin = new Padding(4);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
             txtPassword.PlaceholderText = "PASSWORD";
-            txtPassword.Size = new Size(445, 22);
+            txtPassword.Size = new Size(572, 22);
             txtPassword.TabIndex = 2;
             // 
             // passUnderline
             // 
-            passUnderline.BackColor = SystemColors.ControlDarkDark;
-            passUnderline.Location = new Point(294, 188);
+            passUnderline.BackColor = SystemColors.ControlLight;
+            passUnderline.Location = new Point(378, 263);
+            passUnderline.Margin = new Padding(4);
             passUnderline.Name = "passUnderline";
-            passUnderline.Size = new Size(445, 1);
+            passUnderline.Size = new Size(572, 1);
             passUnderline.TabIndex = 6;
             // 
             // btnClose
@@ -125,9 +130,10 @@
             btnClose.FlatStyle = FlatStyle.Flat;
             btnClose.Font = new Font("Segoe MDL2 Assets", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnClose.ForeColor = Color.White;
-            btnClose.Location = new Point(750, 0);
+            btnClose.Location = new Point(964, 0);
+            btnClose.Margin = new Padding(4);
             btnClose.Name = "btnClose";
-            btnClose.Size = new Size(30, 25);
+            btnClose.Size = new Size(39, 35);
             btnClose.TabIndex = 7;
             btnClose.Text = "";
             btnClose.UseVisualStyleBackColor = true;
@@ -140,9 +146,10 @@
             btnMinimize.FlatStyle = FlatStyle.Flat;
             btnMinimize.Font = new Font("Segoe MDL2 Assets", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnMinimize.ForeColor = Color.White;
-            btnMinimize.Location = new Point(720, 0);
+            btnMinimize.Location = new Point(926, 0);
+            btnMinimize.Margin = new Padding(4);
             btnMinimize.Name = "btnMinimize";
-            btnMinimize.Size = new Size(30, 25);
+            btnMinimize.Size = new Size(39, 35);
             btnMinimize.TabIndex = 8;
             btnMinimize.Text = "";
             btnMinimize.UseVisualStyleBackColor = true;
@@ -150,10 +157,10 @@
             // Login
             // 
             AllowDrop = true;
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(15, 15, 15);
-            ClientSize = new Size(780, 330);
+            ClientSize = new Size(1003, 462);
             Controls.Add(btnMinimize);
             Controls.Add(btnClose);
             Controls.Add(passUnderline);
@@ -163,7 +170,10 @@
             Controls.Add(btnLogin);
             Controls.Add(txtUsername);
             Controls.Add(lbLogin);
+            Font = new Font("Malgun Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ForeColor = SystemColors.ControlLight;
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(4);
             Name = "Login";
             Opacity = 0.9D;
             StartPosition = FormStartPosition.CenterScreen;

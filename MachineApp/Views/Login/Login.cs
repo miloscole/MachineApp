@@ -1,27 +1,24 @@
 ﻿using MachineApp.Helpers;
-using MachineApp.Presenters;
-using MachineApp.Repositories;
+using MachineApp.Models;
 
 namespace MachineApp.Views.Login
 {
     public partial class Login : Form, ILoginView
     {
-        private LoginPresenter _presenter;
+        public event EventHandler? LoginAttempted;
 
-        public Login(IUserRepo repo)
+        public Login()
         {
             InitializeComponent();
-            _presenter = new LoginPresenter(this, repo);
-
             AttachEvents();
         }
 
         public string Username => txtUsername.Text;
         public string Password => txtPassword.Text;
 
-        public void ShowWelcome(string username, string role)
+        public void LoginSucceeded(User? user)
         {
-            MessageBox.Show($"Welcome, {username} ({role})");
+            MessageBox.Show($"Welcome, {user?.Username}.", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         public void ShowError(string message)
@@ -29,9 +26,14 @@ namespace MachineApp.Views.Login
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        void ILoginView.Close()
+        {
+            this.Close();
+        }
+
         private void AttachEvents()
         {
-            btnLogin.Click += (s, e) => _presenter.Login();
+            btnLogin.Click += (s, e) => LoginAttempted?.Invoke(this, EventArgs.Empty);
             btnMinimize.Click += (s, e) => this.WindowState = FormWindowState.Minimized;
             btnClose.Click += (s, e) => this.Close();
 
@@ -44,6 +46,5 @@ namespace MachineApp.Views.Login
             this.MouseDown += dragHandler;
             panLeftSide.MouseDown += dragHandler;
         }
-
     }
 }

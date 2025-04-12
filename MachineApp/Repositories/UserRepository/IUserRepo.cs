@@ -1,6 +1,6 @@
 ﻿using MachineApp.Models;
 
-namespace MachineApp.Repositories
+namespace MachineApp.Repositories.UserRepository
 {
     public interface IUserRepo
     {

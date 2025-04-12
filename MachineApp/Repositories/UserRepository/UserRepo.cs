@@ -1,24 +1,20 @@
-﻿using MachineApp.Models;
+﻿using MachineApp.Helpers;
+using MachineApp.Models;
 using MySql.Data.MySqlClient;
 using BC = BCrypt.Net.BCrypt;
 
 
-namespace MachineApp.Repositories
+namespace MachineApp.Repositories.UserRepository
 {
-    public class UserRepository : IUserRepo
+    public class UserRepo : IUserRepo
     {
-        private readonly string _connectionString;
-
-        public UserRepository(string connectionString)
-        {
-            _connectionString = connectionString;
-        }
-
         public User? GetUser(string username, string password)
         {
-            using var conn = new MySqlConnection(_connectionString);
+            using var conn = new MySqlConnection(AppConfig.ConnectionString);
             conn.Open();
-            var query = "SELECT u.id, u.username, u.password, r.name FROM users u JOIN roles r ON u.role_id = r.id WHERE u.username = @u";
+            var query = @"SELECT u.id, u.username, u.password, r.name 
+                          FROM users u JOIN roles r ON u.role_id = r.id 
+                          WHERE u.username = @u";
             var cmd = new MySqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@u", username);
 

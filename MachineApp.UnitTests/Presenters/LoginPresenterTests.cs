@@ -1,6 +1,6 @@
 ﻿using MachineApp.Models;
 using MachineApp.Presenters;
-using MachineApp.Repositories;
+using MachineApp.Repositories.UserRepository;
 using MachineApp.Views.Login;
 using Moq;
 

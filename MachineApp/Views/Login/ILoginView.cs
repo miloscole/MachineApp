@@ -1,10 +1,14 @@
-﻿namespace MachineApp.Views.Login
+﻿using MachineApp.Models;
+
+namespace MachineApp.Views.Login
 {
     public interface ILoginView
     {
+        event EventHandler LoginAttempted;
         string Username { get; }
         string Password { get; }
-        void ShowWelcome(string username, string role);
+        void LoginSucceeded(User? user);
         void ShowError(string message);
+        void Close();
     }
 }

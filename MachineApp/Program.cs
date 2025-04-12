@@ -1,5 +1,9 @@
-using MachineApp.Repositories;
+using MachineApp.Helpers;
+using MachineApp.Presenters;
+using MachineApp.Repositories.MachineRepository;
+using MachineApp.Repositories.UserRepository;
 using MachineApp.Views.Login;
+using MachineApp.Views.Machines.MachinesList;
 
 namespace MachineApp
 {
@@ -14,8 +18,25 @@ namespace MachineApp
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            var repo = new UserRepository("server=localhost;user=root;password=root;database=machine_app;");
-            Application.Run(new Login(repo));
+
+            while (true)
+            {
+                var loginView = new Login();
+                _ = new LoginPresenter(loginView, new UserRepo());
+                loginView.ShowDialog();
+
+                if (Session.CurrentUser == null)
+                    break;
+
+                var mainView = new MachinesList();
+                _ = new MachinesListPresenter(mainView, new MachineRepo());
+                Application.Run(mainView);
+
+                if (!Session.IsLoggedIn)
+                    continue;
+
+                break;
+            }
         }
     }
 }
