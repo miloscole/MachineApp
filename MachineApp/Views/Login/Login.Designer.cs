@@ -87,7 +87,7 @@
             panLeftSide.Location = new Point(0, 0);
             panLeftSide.Margin = new Padding(4);
             panLeftSide.Name = "panLeftSide";
-            panLeftSide.Size = new Size(321, 462);
+            panLeftSide.Size = new Size(321, 460);
             panLeftSide.TabIndex = 4;
             // 
             // unUnderline
@@ -160,7 +160,7 @@
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(15, 15, 15);
-            ClientSize = new Size(1003, 462);
+            ClientSize = new Size(1003, 460);
             Controls.Add(btnMinimize);
             Controls.Add(btnClose);
             Controls.Add(passUnderline);

@@ -73,6 +73,7 @@
             // btnLogout
             // 
             btnLogout.BackColor = SystemColors.ControlDarkDark;
+            btnLogout.Cursor = Cursors.Hand;
             btnLogout.FlatAppearance.BorderColor = SystemColors.ControlLight;
             btnLogout.FlatAppearance.MouseOverBackColor = Color.FromArgb(15, 15, 15);
             btnLogout.FlatStyle = FlatStyle.Flat;
@@ -88,6 +89,7 @@
             // btnEdit
             // 
             btnEdit.BackColor = SystemColors.ControlDarkDark;
+            btnEdit.Cursor = Cursors.Hand;
             btnEdit.FlatAppearance.BorderColor = SystemColors.ControlLight;
             btnEdit.FlatAppearance.MouseOverBackColor = Color.FromArgb(15, 15, 15);
             btnEdit.FlatStyle = FlatStyle.Flat;
@@ -102,6 +104,7 @@
             // btnDelete
             // 
             btnDelete.BackColor = SystemColors.ControlDarkDark;
+            btnDelete.Cursor = Cursors.Hand;
             btnDelete.FlatAppearance.BorderColor = SystemColors.ControlLight;
             btnDelete.FlatAppearance.MouseOverBackColor = Color.FromArgb(15, 15, 15);
             btnDelete.FlatStyle = FlatStyle.Flat;
@@ -116,6 +119,7 @@
             // btnLogs
             // 
             btnLogs.BackColor = SystemColors.ControlDarkDark;
+            btnLogs.Cursor = Cursors.Hand;
             btnLogs.FlatAppearance.BorderColor = SystemColors.ControlLight;
             btnLogs.FlatAppearance.MouseOverBackColor = Color.FromArgb(15, 15, 15);
             btnLogs.FlatStyle = FlatStyle.Flat;
@@ -130,6 +134,7 @@
             // btnAdd
             // 
             btnAdd.BackColor = SystemColors.ControlDarkDark;
+            btnAdd.Cursor = Cursors.Hand;
             btnAdd.FlatAppearance.BorderColor = SystemColors.ControlLight;
             btnAdd.FlatAppearance.MouseOverBackColor = Color.FromArgb(15, 15, 15);
             btnAdd.FlatStyle = FlatStyle.Flat;
@@ -159,10 +164,12 @@
             dgvMachines.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvMachines.BackgroundColor = SystemColors.ControlDarkDark;
             dgvMachines.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvMachines.EditMode = DataGridViewEditMode.EditProgrammatically;
             dgvMachines.GridColor = SystemColors.ControlDark;
             dgvMachines.Location = new Point(331, 113);
             dgvMachines.MultiSelect = false;
             dgvMachines.Name = "dgvMachines";
+            dgvMachines.ReadOnly = true;
             dgvMachines.RowHeadersVisible = false;
             dataGridViewCellStyle2.ForeColor = Color.FromArgb(64, 64, 64);
             dgvMachines.RowsDefaultCellStyle = dataGridViewCellStyle2;

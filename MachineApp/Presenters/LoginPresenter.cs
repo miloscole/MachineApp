@@ -6,17 +6,18 @@ namespace MachineApp.Presenters
 {
     public class LoginPresenter
     {
-        private readonly ILoginView _view;
+        private readonly ILogin _view;
         private readonly IUserRepo _repo;
 
-        public LoginPresenter(ILoginView view, IUserRepo repo)
+        public LoginPresenter(ILogin view, IUserRepo repo)
         {
             _view = view;
             _repo = repo;
 
-            _view.LoginAttempted += OnLoginAttempted;
+            _view.LoginRequested += OnLoginRequested;
         }
-        private void OnLoginAttempted(object? sender, EventArgs e)
+
+        private void OnLoginRequested()
         {
             try
             {

@@ -3,9 +3,9 @@ using MachineApp.Models;
 
 namespace MachineApp.Views.Login
 {
-    public partial class Login : Form, ILoginView
+    public partial class Login : Form, ILogin
     {
-        public event EventHandler? LoginAttempted;
+        public event Action? LoginRequested;
 
         public Login()
         {
@@ -26,14 +26,14 @@ namespace MachineApp.Views.Login
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        void ILoginView.Close()
+        void ILogin.Close()
         {
             this.Close();
         }
 
         private void AttachEvents()
         {
-            btnLogin.Click += (s, e) => LoginAttempted?.Invoke(this, EventArgs.Empty);
+            btnLogin.Click += (s, e) => LoginRequested?.Invoke();
             btnMinimize.Click += (s, e) => this.WindowState = FormWindowState.Minimized;
             btnClose.Click += (s, e) => this.Close();
 

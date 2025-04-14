@@ -3,13 +3,13 @@ using MachineApp.Models;
 
 namespace MachineApp.Views.Machines.MachinesList
 {
-    public partial class MachinesList : Form, IMachineListView
+    public partial class MachinesList : Form, IMachineList
     {
-        public event EventHandler? LoadMachines;
-        public event EventHandler AddMachineRequested;
-        public event EventHandler EditMachineRequested;
-        public event EventHandler DeleteMachineRequested;
-        public event EventHandler LogoutRequested;
+        public event Action? LoadMachines;
+        public event Action? AddMachineRequested;
+        public event Action<Machine>? EditMachineRequested;
+        public event Action? DeleteMachineRequested;
+        public event Action? LogoutRequested;
 
         public MachinesList()
         {
@@ -25,15 +25,42 @@ namespace MachineApp.Views.Machines.MachinesList
             dgvMachines.DataSource = machines;
         }
 
-        public void ShowError(string message)
+        public void ShowErrorOnLoad(string message)
         {
             lblGetMachinesError.Visible = true;
             lblGetMachinesError.Text = message;
         }
 
-        void IMachineListView.Close()
+        public void ShowErrorOnDelete(string message)
         {
-            this.Close();
+            MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public bool ShouldConfirmDeletion()
+        {
+            var result = MessageBox.Show(
+                "Are you Sure?",
+                "Confirm Deletion",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+            return result == DialogResult.Yes;
+        }
+
+        public Machine? SelectedMachine
+        {
+            get
+            {
+                if (dgvMachines.SelectedRows.Count == 0)
+                    return null;
+
+                return dgvMachines.SelectedRows[0].DataBoundItem as Machine;
+            }
+        }
+
+        void IMachineList.Close()
+        {
+            Close();
         }
 
         public void HideAdminControls()
@@ -43,11 +70,15 @@ namespace MachineApp.Views.Machines.MachinesList
 
         private void AttachEvents()
         {
-            this.Load += (s, e) => LoadMachines?.Invoke(this, EventArgs.Empty);
-            btnAdd.Click += (s, e) => AddMachineRequested.Invoke(this, EventArgs.Empty);
-            btnEdit.Click += (s, e) => EditMachineRequested.Invoke(this, EventArgs.Empty);
-            btnDelete.Click += (s, e) => DeleteMachineRequested.Invoke(this, EventArgs.Empty);
-            btnLogout.Click += (s, e) => LogoutRequested.Invoke(this, EventArgs.Empty);
+            Load += (s, e) => LoadMachines?.Invoke();
+            btnAdd.Click += (s, e) => AddMachineRequested?.Invoke();
+            btnEdit.Click += (s, e) =>
+            {
+                if (SelectedMachine != null)
+                    EditMachineRequested?.Invoke(SelectedMachine);
+            };
+            btnDelete.Click += (s, e) => DeleteMachineRequested?.Invoke();
+            btnLogout.Click += (s, e) => LogoutRequested?.Invoke();
         }
     }
 }

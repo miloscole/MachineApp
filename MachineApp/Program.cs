@@ -1,9 +1,5 @@
+using MachineApp.Factory;
 using MachineApp.Helpers;
-using MachineApp.Presenters;
-using MachineApp.Repositories.MachineRepository;
-using MachineApp.Repositories.UserRepository;
-using MachineApp.Views.Login;
-using MachineApp.Views.Machines.MachinesList;
 
 namespace MachineApp
 {
@@ -19,17 +15,17 @@ namespace MachineApp
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
+            var factory = new ViewFactory();
+
             while (true)
             {
-                var loginView = new Login();
-                _ = new LoginPresenter(loginView, new UserRepo());
+                var loginView = factory.CreateLoginView();
                 loginView.ShowDialog();
 
                 if (Session.CurrentUser == null)
                     break;
 
-                var mainView = new MachinesList();
-                _ = new MachinesListPresenter(mainView, new MachineRepo());
+                var mainView = factory.CreateMachinesListView();
                 Application.Run(mainView);
 
                 if (!Session.IsLoggedIn)

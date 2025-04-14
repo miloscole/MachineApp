@@ -2,9 +2,9 @@
 
 namespace MachineApp.Views.Login
 {
-    public interface ILoginView
+    public interface ILogin
     {
-        event EventHandler LoginAttempted;
+        event Action? LoginRequested;
         string Username { get; }
         string Password { get; }
         void LoginSucceeded(User? user);
