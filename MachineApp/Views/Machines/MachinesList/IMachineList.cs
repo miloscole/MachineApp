@@ -8,13 +8,14 @@ namespace MachineApp.Views.Machines.MachinesList
         event Action? AddMachineRequested;
         event Action<Machine>? EditMachineRequested;
         event Action? DeleteMachineRequested;
+        event Action<int>? MachineLogRequested;
         event Action? LogoutRequested;
         void DisplayMachines(List<Machine> machines);
         void ShowErrorOnLoad(string message);
         void ShowErrorOnDelete(string message);
         bool ShouldConfirmDeletion();
         void HideAdminControls();
-        void Close();
+        void CloseForm();
         Machine? SelectedMachine { get; }
     }
 }

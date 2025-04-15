@@ -23,6 +23,7 @@ namespace MachineApp.Presenters
             _view.DeleteMachineRequested += OnDeleteMachineRequested;
             _view.AddMachineRequested += OnAddMachineRequested;
             _view.EditMachineRequested += (machine) => OnEditMachineRequested(machine);
+            _view.MachineLogRequested += (id) => OnMachineLogRequested(id);
         }
 
         private void OnLoadMachines()
@@ -44,7 +45,7 @@ namespace MachineApp.Presenters
         private void OnLogoutRequested()
         {
             Session.ClearSession();
-            _view.Close();
+            _view.CloseForm();
         }
 
         private void OnDeleteMachineRequested()
@@ -74,6 +75,12 @@ namespace MachineApp.Presenters
             {
                 _view.ShowErrorOnDelete($"Failed to delete machine: {ex.Message}");
             }
+        }
+
+        private void OnMachineLogRequested(int id)
+        {
+            var form = _factory.CreateMachineLogFormView(id);
+            form.ShowDialog();
         }
 
         private void OnMachineFormRequested(Machine? machine = null)

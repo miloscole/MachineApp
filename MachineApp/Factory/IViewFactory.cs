@@ -7,5 +7,6 @@ namespace MachineApp.Factory
         Form CreateLoginView();
         Form CreateMachinesListView();
         Form CreateMachineFormView(Machine? machine = null);
+        Form CreateMachineLogFormView(int id);
     }
 }

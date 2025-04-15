@@ -1,9 +1,11 @@
 ﻿using MachineApp.Models;
 using MachineApp.Presenters;
+using MachineApp.Repositories.MachineLogRepository;
 using MachineApp.Repositories.MachineRepository;
 using MachineApp.Repositories.UserRepository;
 using MachineApp.Views.Login;
 using MachineApp.Views.Machines.MachineForm;
+using MachineApp.Views.Machines.MachineLogForm;
 using MachineApp.Views.Machines.MachinesList;
 
 namespace MachineApp.Factory
@@ -29,6 +31,13 @@ namespace MachineApp.Factory
             var formView = new MachineForm();
             _ = new MachineFormPresenter(formView, new MachineRepo(), machine);
             return formView;
+        }
+
+        public Form CreateMachineLogFormView(int id)
+        {
+            var mlfView = new MachineLogForm();
+            _ = new MachineLogPresenter(mlfView, new MachineLogRepo(), id);
+            return mlfView;
         }
     }
 

@@ -10,6 +10,7 @@ namespace MachineApp.Views.Machines.MachinesList
         public event Action<Machine>? EditMachineRequested;
         public event Action? DeleteMachineRequested;
         public event Action? LogoutRequested;
+        public event Action<int>? MachineLogRequested;
 
         public MachinesList()
         {
@@ -58,10 +59,7 @@ namespace MachineApp.Views.Machines.MachinesList
             }
         }
 
-        void IMachineList.Close()
-        {
-            Close();
-        }
+        public void CloseForm() => Close();
 
         public void HideAdminControls()
         {
@@ -79,6 +77,11 @@ namespace MachineApp.Views.Machines.MachinesList
             };
             btnDelete.Click += (s, e) => DeleteMachineRequested?.Invoke();
             btnLogout.Click += (s, e) => LogoutRequested?.Invoke();
+            btnLogs.Click += (s, e) =>
+            {
+                if (SelectedMachine != null)
+                    MachineLogRequested?.Invoke(SelectedMachine.Id);
+            };
         }
     }
 }

@@ -4,7 +4,7 @@ namespace MachineApp.Views.Machines.MachineForm
 {
     public partial class MachineForm : Form, IMachineForm
     {
-        public event Action SaveMachineRequested;
+        public event Action? SaveMachineRequested;
 
         public MachineForm()
         {
@@ -33,10 +33,9 @@ namespace MachineApp.Views.Machines.MachineForm
 
         public Machine GetMachineData()
         {
-            _ = int.TryParse(lbId.Text, out int id);
             return new Machine
             {
-                Id = id,
+                Id = int.TryParse(lbId.Text, out var id) ? id : 0,
                 Name = txtName.Text,
                 SerialNumber = txtSerialNum.Text,
                 Specifications = txtSpec.Text,
@@ -53,6 +52,9 @@ namespace MachineApp.Views.Machines.MachineForm
                 MessageBoxIcon.Warning
             );
         }
+
+        public void ShowInfoMessageBox(string msg) =>
+            MessageBox.Show(msg, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         public void CloseForm() => Close();
         public void SetDialogResult(DialogResult result) => DialogResult = result;

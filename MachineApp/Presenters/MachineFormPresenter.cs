@@ -19,8 +19,9 @@ namespace MachineApp.Presenters
             _machineToEdit = machineToEdit;
 
             _view.MachineTypes = _repo.GetAllMachineTypes();
-            HandleEditForm();
             _view.SaveMachineRequested += OnSaveMachineRequested;
+
+            HandleEditForm();
         }
 
         private void OnSaveMachineRequested()
@@ -35,9 +36,16 @@ namespace MachineApp.Presenters
             }
 
             if (_machineToEdit == null)
+            {
                 _repo.Insert(machine);
+                _view.ShowInfoMessageBox("Successfully created!");
+
+            }
             else
+            {
                 _repo.Update(machine);
+                _view.ShowInfoMessageBox("Successfully updated!");
+            }
 
             _view.SetDialogResult(DialogResult.OK);
             _view.CloseForm();

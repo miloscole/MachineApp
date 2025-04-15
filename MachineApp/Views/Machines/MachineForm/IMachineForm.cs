@@ -11,6 +11,7 @@ namespace MachineApp.Views.Machines.MachineForm
         void SetDialogResult(DialogResult result);
         void SetFormTitle(string title);
         void ShowValidationErrors(List<string> errors);
+        void ShowInfoMessageBox(string msg);
         List<MachineType> MachineTypes { set; }
         Machine GetMachineData();
     }
