@@ -1,24 +1,23 @@
-﻿using MachineApp.Helpers;
-using MachineApp.Models;
+﻿using MachineApp.Models;
 using MySql.Data.MySqlClient;
 using BC = BCrypt.Net.BCrypt;
 
 
 namespace MachineApp.Repositories.UserRepository
 {
-    public class UserRepo : IUserRepo
+    public class UserRepo : BaseRepository, IUserRepo
     {
+        private const string GetUserQuery = @"
+            SELECT u.id, u.username, u.password, r.name 
+            FROM users u 
+            JOIN roles r ON u.role_id = r.id 
+            WHERE u.username = @username";
+
         public User? GetUser(string username, string password)
         {
-            using var conn = new MySqlConnection(AppConfig.ConnectionString);
-            conn.Open();
-            var query = @"SELECT u.id, u.username, u.password, r.name 
-                          FROM users u JOIN roles r ON u.role_id = r.id 
-                          WHERE u.username = @u";
-            var cmd = new MySqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@u", username);
+            var parameters = new List<MySqlParameter> { new("@username", username) };
+            using var reader = ExecuteReader(GetUserQuery, parameters);
 
-            using var reader = cmd.ExecuteReader();
             if (reader.Read())
             {
                 var hashedPassword = reader.GetString("password");
@@ -33,6 +32,7 @@ namespace MachineApp.Repositories.UserRepository
                     };
                 }
             }
+
             return null;
         }
     }

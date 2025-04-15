@@ -48,7 +48,7 @@
             lbLogin.Name = "lbLogin";
             lbLogin.RightToLeft = RightToLeft.Yes;
             lbLogin.Size = new Size(76, 30);
-            lbLogin.TabIndex = 0;
+            lbLogin.TabIndex = 4;
             lbLogin.Text = "LOGIN";
             // 
             // txtUsername

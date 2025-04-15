@@ -30,6 +30,8 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panLeftSide = new Panel();
+            label2 = new Label();
+            lbMachineApp = new Label();
             lblUserInfo = new Label();
             btnLogout = new Button();
             btnEdit = new Button();
@@ -45,33 +47,56 @@
             // 
             // panLeftSide
             // 
+            panLeftSide.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             panLeftSide.BackColor = SystemColors.ControlDarkDark;
+            panLeftSide.Controls.Add(label2);
+            panLeftSide.Controls.Add(lbMachineApp);
             panLeftSide.Controls.Add(lblUserInfo);
             panLeftSide.Controls.Add(btnLogout);
             panLeftSide.Controls.Add(btnEdit);
             panLeftSide.Controls.Add(btnDelete);
             panLeftSide.Controls.Add(btnLogs);
             panLeftSide.Controls.Add(btnAdd);
-            panLeftSide.Dock = DockStyle.Left;
             panLeftSide.Location = new Point(0, 0);
             panLeftSide.Margin = new Padding(4);
             panLeftSide.Name = "panLeftSide";
             panLeftSide.Size = new Size(322, 681);
             panLeftSide.TabIndex = 0;
             // 
+            // label2
+            // 
+            label2.Font = new Font("Malgun Gothic", 12.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(3, 45);
+            label2.Name = "label2";
+            label2.Size = new Size(316, 34);
+            label2.TabIndex = 10;
+            label2.Text = "[Manage Your Machines]";
+            label2.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // lbMachineApp
+            // 
+            lbMachineApp.Font = new Font("Malgun Gothic", 17.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lbMachineApp.Location = new Point(3, 9);
+            lbMachineApp.Name = "lbMachineApp";
+            lbMachineApp.Size = new Size(316, 36);
+            lbMachineApp.TabIndex = 9;
+            lbMachineApp.Text = "MachineApp";
+            lbMachineApp.TextAlign = ContentAlignment.TopCenter;
+            // 
             // lblUserInfo
             // 
-            lblUserInfo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            lblUserInfo.Anchor = AnchorStyles.Bottom;
             lblUserInfo.BackColor = SystemColors.ControlDarkDark;
-            lblUserInfo.Font = new Font("Malgun Gothic", 13F);
-            lblUserInfo.Location = new Point(3, 576);
+            lblUserInfo.Font = new Font("Malgun Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblUserInfo.Location = new Point(3, 570);
             lblUserInfo.Name = "lblUserInfo";
-            lblUserInfo.Size = new Size(316, 25);
-            lblUserInfo.TabIndex = 5;
+            lblUserInfo.Size = new Size(316, 46);
+            lblUserInfo.TabIndex = 8;
             lblUserInfo.TextAlign = ContentAlignment.TopCenter;
             // 
             // btnLogout
             // 
+            btnLogout.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnLogout.BackColor = SystemColors.ControlDarkDark;
             btnLogout.Cursor = Cursors.Hand;
             btnLogout.FlatAppearance.BorderColor = SystemColors.ControlLight;
@@ -94,10 +119,10 @@
             btnEdit.FlatAppearance.MouseOverBackColor = Color.FromArgb(15, 15, 15);
             btnEdit.FlatStyle = FlatStyle.Flat;
             btnEdit.ForeColor = SystemColors.ControlLight;
-            btnEdit.Location = new Point(37, 215);
+            btnEdit.Location = new Point(37, 277);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(245, 50);
-            btnEdit.TabIndex = 3;
+            btnEdit.TabIndex = 1;
             btnEdit.Text = "EDIT MACHINE";
             btnEdit.UseVisualStyleBackColor = false;
             // 
@@ -109,7 +134,7 @@
             btnDelete.FlatAppearance.MouseOverBackColor = Color.FromArgb(15, 15, 15);
             btnDelete.FlatStyle = FlatStyle.Flat;
             btnDelete.ForeColor = SystemColors.ControlLight;
-            btnDelete.Location = new Point(37, 281);
+            btnDelete.Location = new Point(37, 354);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(245, 50);
             btnDelete.TabIndex = 2;
@@ -124,11 +149,11 @@
             btnLogs.FlatAppearance.MouseOverBackColor = Color.FromArgb(15, 15, 15);
             btnLogs.FlatStyle = FlatStyle.Flat;
             btnLogs.ForeColor = SystemColors.ControlLight;
-            btnLogs.Location = new Point(37, 346);
+            btnLogs.Location = new Point(37, 431);
             btnLogs.Name = "btnLogs";
             btnLogs.Size = new Size(245, 50);
-            btnLogs.TabIndex = 1;
-            btnLogs.Text = "MACHINE LOGS";
+            btnLogs.TabIndex = 3;
+            btnLogs.Text = "MACHINE LOG";
             btnLogs.UseVisualStyleBackColor = false;
             // 
             // btnAdd
@@ -139,7 +164,7 @@
             btnAdd.FlatAppearance.MouseOverBackColor = Color.FromArgb(15, 15, 15);
             btnAdd.FlatStyle = FlatStyle.Flat;
             btnAdd.ForeColor = SystemColors.ControlLight;
-            btnAdd.Location = new Point(37, 113);
+            btnAdd.Location = new Point(37, 200);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(245, 50);
             btnAdd.TabIndex = 0;
@@ -150,11 +175,11 @@
             // 
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             label1.Font = new Font("Malgun Gothic", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(331, 35);
+            label1.Location = new Point(331, 39);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new Size(923, 30);
-            label1.TabIndex = 1;
+            label1.TabIndex = 5;
             label1.Text = "MACHINES LIST";
             label1.TextAlign = ContentAlignment.TopCenter;
             // 
@@ -175,7 +200,7 @@
             dgvMachines.RowsDefaultCellStyle = dataGridViewCellStyle2;
             dgvMachines.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvMachines.Size = new Size(923, 556);
-            dgvMachines.TabIndex = 2;
+            dgvMachines.TabIndex = 6;
             // 
             // lblGetMachinesError
             // 
@@ -184,7 +209,7 @@
             lblGetMachinesError.Location = new Point(331, 89);
             lblGetMachinesError.Name = "lblGetMachinesError";
             lblGetMachinesError.Size = new Size(923, 21);
-            lblGetMachinesError.TabIndex = 3;
+            lblGetMachinesError.TabIndex = 7;
             lblGetMachinesError.TextAlign = ContentAlignment.TopCenter;
             lblGetMachinesError.Visible = false;
             // 
@@ -201,10 +226,11 @@
             Font = new Font("Malgun Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ForeColor = SystemColors.ControlLight;
             Margin = new Padding(4);
+            MinimumSize = new Size(1280, 720);
             Name = "MachinesList";
             Opacity = 0.9D;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "MachinesList";
+            Text = "Machines List";
             panLeftSide.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvMachines).EndInit();
             ResumeLayout(false);
@@ -222,5 +248,7 @@
         private Button btnLogout;
         private Label lblUserInfo;
         private Label lblGetMachinesError;
+        private Label lbMachineApp;
+        private Label label2;
     }
 }

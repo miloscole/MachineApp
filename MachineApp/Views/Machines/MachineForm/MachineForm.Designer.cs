@@ -49,7 +49,7 @@
             nameUnderline.Margin = new Padding(5, 6, 5, 6);
             nameUnderline.Name = "nameUnderline";
             nameUnderline.Size = new Size(600, 1);
-            nameUnderline.TabIndex = 13;
+            nameUnderline.TabIndex = 20;
             // 
             // btnSave
             // 
@@ -64,7 +64,7 @@
             btnSave.Margin = new Padding(5, 6, 5, 6);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(270, 50);
-            btnSave.TabIndex = 12;
+            btnSave.TabIndex = 5;
             btnSave.Text = "SAVE";
             btnSave.UseVisualStyleBackColor = false;
             // 
@@ -79,7 +79,7 @@
             txtName.Name = "txtName";
             txtName.PlaceholderText = "NAME";
             txtName.Size = new Size(600, 22);
-            txtName.TabIndex = 10;
+            txtName.TabIndex = 1;
             // 
             // lbTitle
             // 
@@ -90,7 +90,7 @@
             lbTitle.Name = "lbTitle";
             lbTitle.RightToLeft = RightToLeft.Yes;
             lbTitle.Size = new Size(635, 36);
-            lbTitle.TabIndex = 9;
+            lbTitle.TabIndex = 7;
             lbTitle.Text = "ADD MACHINE";
             lbTitle.TextAlign = ContentAlignment.TopCenter;
             // 
@@ -105,7 +105,7 @@
             txtSerialNum.Name = "txtSerialNum";
             txtSerialNum.PlaceholderText = "SERIAL NUMBER";
             txtSerialNum.Size = new Size(600, 22);
-            txtSerialNum.TabIndex = 11;
+            txtSerialNum.TabIndex = 2;
             // 
             // snUnderline
             // 
@@ -114,7 +114,7 @@
             snUnderline.Margin = new Padding(5, 6, 5, 6);
             snUnderline.Name = "snUnderline";
             snUnderline.Size = new Size(600, 1);
-            snUnderline.TabIndex = 14;
+            snUnderline.TabIndex = 21;
             // 
             // txtSpec
             // 
@@ -127,7 +127,7 @@
             txtSpec.Name = "txtSpec";
             txtSpec.PlaceholderText = "SPECIFICATIONS";
             txtSpec.Size = new Size(600, 22);
-            txtSpec.TabIndex = 11;
+            txtSpec.TabIndex = 3;
             // 
             // specUnderline
             // 
@@ -136,18 +136,19 @@
             specUnderline.Margin = new Padding(5, 6, 5, 6);
             specUnderline.Name = "specUnderline";
             specUnderline.Size = new Size(600, 1);
-            specUnderline.TabIndex = 14;
+            specUnderline.TabIndex = 22;
             // 
             // ddTypes
             // 
             ddTypes.BackColor = Color.FromArgb(15, 15, 15);
+            ddTypes.DropDownStyle = ComboBoxStyle.DropDownList;
             ddTypes.ForeColor = SystemColors.ControlDarkDark;
             ddTypes.FormattingEnabled = true;
             ddTypes.Location = new Point(32, 366);
             ddTypes.Margin = new Padding(4);
             ddTypes.Name = "ddTypes";
             ddTypes.Size = new Size(600, 29);
-            ddTypes.TabIndex = 17;
+            ddTypes.TabIndex = 4;
             // 
             // btnCancel
             // 
@@ -162,7 +163,7 @@
             btnCancel.Margin = new Padding(5, 6, 5, 6);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(270, 50);
-            btnCancel.TabIndex = 18;
+            btnCancel.TabIndex = 6;
             btnCancel.Text = "CANCEL";
             btnCancel.UseVisualStyleBackColor = false;
             // 
@@ -172,7 +173,7 @@
             lbType.Location = new Point(32, 338);
             lbType.Name = "lbType";
             lbType.Size = new Size(270, 24);
-            lbType.TabIndex = 19;
+            lbType.TabIndex = 8;
             lbType.Text = "MACHINE TYPE";
             lbType.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -182,7 +183,7 @@
             lbId.Location = new Point(578, 81);
             lbId.Name = "lbId";
             lbId.Size = new Size(0, 21);
-            lbId.TabIndex = 20;
+            lbId.TabIndex = 23;
             lbId.Visible = false;
             // 
             // MachineForm

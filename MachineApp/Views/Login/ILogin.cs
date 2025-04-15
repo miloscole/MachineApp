@@ -8,7 +8,7 @@ namespace MachineApp.Views.Login
         string Username { get; }
         string Password { get; }
         void LoginSucceeded(User? user);
-        void ShowError(string message);
-        void Close();
+        void ShowErrorMessageBox(string message);
+        void CloseForm();
     }
 }

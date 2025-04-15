@@ -8,7 +8,6 @@ namespace MachineApp.Repositories.MachineRepository
         void Update(Machine machine);
         void Delete(int id);
         List<Machine> GetAll();
-        Machine? GetById(int id);
         List<MachineType> GetAllMachineTypes();
     }
 }

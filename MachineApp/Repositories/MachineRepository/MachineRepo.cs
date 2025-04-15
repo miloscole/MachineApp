@@ -1,142 +1,114 @@
-﻿using MachineApp.Helpers;
-using MachineApp.Models;
+﻿using MachineApp.Models;
 using MySql.Data.MySqlClient;
 
 namespace MachineApp.Repositories.MachineRepository
 {
-    public class MachineRepo() : IMachineRepo
+    public class MachineRepo : BaseRepository, IMachineRepo
     {
+        private const string InsertQuery = @"
+            INSERT INTO machines 
+                (name, serial_number, specifications, machine_type_id)
+            VALUES 
+                (@name, @serial_number, @specifications, @machine_type_id)";
+
+        private const string UpdateQuery = @"
+            UPDATE machines 
+            SET
+                name = @name, 
+                serial_number = @serial_number, 
+                specifications = @specifications,
+                machine_type_id = @machine_type_id
+            WHERE id = @id";
+
+        private const string DeleteQuery = "DELETE FROM machines WHERE id = @id";
+
+        private const string GetAllQuery = @"
+            SELECT m.*, t.type_name 
+            FROM machines m 
+            LEFT JOIN machine_types t ON m.machine_type_id = t.id";
+
+        private const string GetAllTypesQuery = "SELECT * FROM machine_types";
+
         public void Insert(Machine machine)
         {
-            using var conn = new MySqlConnection(AppConfig.ConnectionString);
-            conn.Open();
-
-            var query = @"INSERT INTO machines 
-                            (name, serial_number, specifications, machine_type_id)
-                          VALUES 
-                            (@name, @serial_number, @specifications, @machine_type_id)";
-            using var cmd = new MySqlCommand(query, conn);
-            AddMachineParameters(cmd, machine);
-            cmd.ExecuteNonQuery();
+            ExecuteNonQuery(InsertQuery, CreateMachineParameters(machine));
         }
 
         public void Update(Machine machine)
         {
-            using var conn = new MySqlConnection(AppConfig.ConnectionString);
-            conn.Open();
-
-            var query = @"UPDATE machines 
-                          SET
-                            name = @name, 
-                            serial_number = @serial_number, 
-                            specifications = @specifications,
-                            machine_type_id = @machine_type_id
-                          WHERE id = @id";
-            using var cmd = new MySqlCommand(query, conn);
-            AddMachineParameters(cmd, machine);
-            cmd.Parameters.AddWithValue("@id", machine.Id);
-            cmd.ExecuteNonQuery();
+            var parameters = CreateMachineParameters(machine);
+            parameters.Add(new MySqlParameter("@id", machine.Id));
+            ExecuteNonQuery(UpdateQuery, parameters);
         }
 
         public void Delete(int id)
         {
-            using var conn = new MySqlConnection(AppConfig.ConnectionString);
-            conn.Open();
-
-            var query = "DELETE FROM machines WHERE id = @id";
-            using var cmd = new MySqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@id", id);
-            cmd.ExecuteNonQuery();
+            var parameters = new List<MySqlParameter> { new("@id", id) };
+            ExecuteNonQuery(DeleteQuery, parameters);
         }
 
         public List<Machine> GetAll()
         {
-            var machines = new List<Machine>();
-            using var conn = new MySqlConnection(AppConfig.ConnectionString);
-            conn.Open();
+            using var reader = ExecuteReader(GetAllQuery);
 
-            var query = @"SELECT m.*, t.type_name 
-                          FROM machines m 
-                          JOIN machine_types t ON m.machine_type_id = t.id";
-            using var cmd = new MySqlCommand(query, conn);
-            using var reader = cmd.ExecuteReader();
+            var machines = new List<Machine>();
             while (reader.Read())
             {
-                machines.Add(new Machine
-                {
-                    Id = reader.GetInt32("id"),
-                    Name = reader.GetString("name"),
-                    SerialNumber = reader.GetString("serial_number"),
-                    Specifications = reader.GetString("specifications"),
-                    MachineTypeId = reader.GetInt32("machine_type_id"),
-                    MachineType = reader.GetString("type_name"),
-                    CreatedAt = reader.GetDateTime("created_at"),
-                    UpdatedAt = reader.GetDateTime("updated_at")
-                });
+                machines.Add(ReadMachine(reader));
             }
 
             return machines;
         }
 
-        public Machine? GetById(int id)
-        {
-            using var conn = new MySqlConnection(AppConfig.ConnectionString);
-            conn.Open();
-
-            var query = @"SELECT m.*, t.type_name 
-                          FROM machines m 
-                          JOIN machine_types t ON m.machine_type_id = t.id 
-                          WHERE m.id = @id";
-            using var cmd = new MySqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@id", id);
-            using var reader = cmd.ExecuteReader();
-            if (reader.Read())
-            {
-                return new Machine
-                {
-                    Id = reader.GetInt32("id"),
-                    Name = reader.GetString("name"),
-                    SerialNumber = reader.GetString("serial_number"),
-                    Specifications = reader.GetString("specifications"),
-                    MachineTypeId = reader.GetInt32("machine_type_id"),
-                    MachineType = reader.GetString("type_name"),
-                    CreatedAt = reader.GetDateTime("created_at"),
-                    UpdatedAt = reader.GetDateTime("updated_at")
-                };
-            }
-
-            return null;
-        }
-
         public List<MachineType> GetAllMachineTypes()
         {
-            var types = new List<MachineType>();
-            using var conn = new MySqlConnection(AppConfig.ConnectionString);
-            conn.Open();
+            using var reader = ExecuteReader(GetAllTypesQuery);
 
-            var query = "SELECT * FROM machine_types";
-            using var cmd = new MySqlCommand(query, conn);
-            using var reader = cmd.ExecuteReader();
+            var types = new List<MachineType>();
             while (reader.Read())
             {
-                types.Add(new MachineType
-                {
-                    Id = reader.GetInt32("id"),
-                    TypeName = reader.GetString("type_name"),
-                    Description = reader.GetString("description")
-                });
+                types.Add(ReadMachineType(reader));
             }
 
             return types;
         }
 
-        private static void AddMachineParameters(MySqlCommand cmd, Machine machine)
+        // Helper methods
+
+        private static List<MySqlParameter> CreateMachineParameters(Machine machine)
         {
-            cmd.Parameters.AddWithValue("@name", machine.Name);
-            cmd.Parameters.AddWithValue("@serial_number", machine.SerialNumber);
-            cmd.Parameters.AddWithValue("@specifications", machine.Specifications);
-            cmd.Parameters.AddWithValue("@machine_type_id", machine.MachineTypeId);
+            return new List<MySqlParameter>
+            {
+                new("@name", machine.Name),
+                new("@serial_number", machine.SerialNumber),
+                new("@specifications", machine.Specifications),
+                new("@machine_type_id", machine.MachineTypeId)
+            };
+        }
+
+        private static Machine ReadMachine(MySqlDataReader reader)
+        {
+            return new Machine
+            {
+                Id = reader.GetInt32("id"),
+                Name = reader.GetString("name"),
+                SerialNumber = reader.GetString("serial_number"),
+                Specifications = GetNullableString(reader, "specifications"),
+                MachineTypeId = GetNullableInt(reader, "machine_type_id"),
+                MachineType = GetNullableString(reader, "type_name"),
+                CreatedAt = reader.GetDateTime("created_at"),
+                UpdatedAt = reader.GetDateTime("updated_at")
+            };
+        }
+
+        private static MachineType ReadMachineType(MySqlDataReader reader)
+        {
+            return new MachineType
+            {
+                Id = reader.GetInt32("id"),
+                TypeName = reader.GetString("type_name"),
+                Description = GetNullableString(reader, "description")
+            };
         }
     }
-
 }

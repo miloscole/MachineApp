@@ -47,14 +47,17 @@ namespace MachineApp.Views.Machines.MachineForm
         {
             MessageBox.Show(
                 string.Join(Environment.NewLine, errors),
-                "Warning!",
+                String.Empty,
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Warning
             );
         }
 
         public void ShowInfoMessageBox(string msg) =>
-            MessageBox.Show(msg, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(msg, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        public void ShowErrorMessageBox(string msg) =>
+            MessageBox.Show(msg, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         public void CloseForm() => Close();
         public void SetDialogResult(DialogResult result) => DialogResult = result;

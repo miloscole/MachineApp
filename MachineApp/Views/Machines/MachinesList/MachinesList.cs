@@ -16,8 +16,6 @@ namespace MachineApp.Views.Machines.MachinesList
         {
             InitializeComponent();
             AttachEvents();
-
-            lblUserInfo.Text = $"Logged in as: {Session.CurrentUser?.Username} ({Session.CurrentUser?.RoleName})";
         }
 
         public void DisplayMachines(List<Machine> machines)
@@ -32,16 +30,21 @@ namespace MachineApp.Views.Machines.MachinesList
             lblGetMachinesError.Text = message;
         }
 
-        public void ShowErrorOnDelete(string message)
+        public void ShowErrorMessageBox(string message)
         {
-            MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public void ShowInfoMessageBox(string message)
+        {
+            MessageBox.Show(message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         public bool ShouldConfirmDeletion()
         {
             var result = MessageBox.Show(
-                "Are you Sure?",
-                "Confirm Deletion",
+                Constants.ConfirmDelete,
+                String.Empty,
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question
             );
@@ -59,11 +62,19 @@ namespace MachineApp.Views.Machines.MachinesList
             }
         }
 
+        public void SetUserInfo(string userInfoText)
+        {
+            lblUserInfo.Text = userInfoText;
+        }
+
         public void CloseForm() => Close();
 
         public void HideAdminControls()
         {
-            throw new NotImplementedException();
+            btnAdd.Hide();
+            btnEdit.Hide();
+            btnDelete.Hide();
+            btnLogs.Hide();
         }
 
         private void AttachEvents()

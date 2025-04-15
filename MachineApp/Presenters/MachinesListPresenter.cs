@@ -18,6 +18,15 @@ namespace MachineApp.Presenters
             _repo = repo;
             _factory = factory;
 
+            var userInfo = string.Format(
+                Constants.UserInfoTemplate,
+                Session.CurrentUser?.Username,
+                Session.CurrentUser?.RoleName
+            );
+            _view.SetUserInfo(userInfo);
+
+            if (!Session.IsAdmin) _view.HideAdminControls();
+
             _view.LoadMachines += OnLoadMachines;
             _view.LogoutRequested += OnLogoutRequested;
             _view.DeleteMachineRequested += OnDeleteMachineRequested;
@@ -34,11 +43,11 @@ namespace MachineApp.Presenters
                 if (machines.Count != 0)
                     _view.DisplayMachines(machines);
                 else
-                    _view.ShowErrorOnLoad("Nothing to show!");
+                    _view.ShowErrorOnLoad(Constants.EmptyTable);
             }
             catch (Exception ex)
             {
-                _view.ShowErrorOnLoad($"Unexpected error: {ex.Message}");
+                _view.ShowErrorOnLoad(Constants.LoadFail + ex.Message);
             }
         }
 
@@ -52,35 +61,42 @@ namespace MachineApp.Presenters
         {
             if (!Session.IsAdmin)
             {
-                _view.ShowErrorOnDelete("Only admin can delete machines.");
+                _view.ShowErrorMessageBox(Constants.OnlyAdminAllowed);
                 return;
             }
 
             var selected = _view.SelectedMachine;
             if (selected == null)
             {
-                _view.ShowErrorOnDelete("No machine selected.");
+                _view.ShowErrorMessageBox(Constants.NoneSelected);
                 return;
             }
-
-            try
-            {
-                if (_view.ShouldConfirmDeletion())
-                {
-                    _repo.Delete(selected.Id);
-                    OnLoadMachines();
-                }
-            }
-            catch (Exception ex)
-            {
-                _view.ShowErrorOnDelete($"Failed to delete machine: {ex.Message}");
-            }
+            HandleConfirmedDeletion(selected.Id);
         }
 
         private void OnMachineLogRequested(int id)
         {
             var form = _factory.CreateMachineLogFormView(id);
             form.ShowDialog();
+        }
+
+
+
+        private void HandleConfirmedDeletion(int id)
+        {
+            if (_view.ShouldConfirmDeletion())
+            {
+                try
+                {
+                    _repo.Delete(id);
+                    _view.ShowInfoMessageBox(Constants.DeleteSuccess);
+                    OnLoadMachines();
+                }
+                catch (Exception ex)
+                {
+                    _view.ShowErrorMessageBox(Constants.DeleteFail + ex.Message);
+                }
+            }
         }
 
         private void OnMachineFormRequested(Machine? machine = null)

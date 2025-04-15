@@ -39,6 +39,7 @@
             dtDeliveryDate = new DateTimePicker();
             lbDeliveryDate = new Label();
             lbMachineId = new Label();
+            lbMachineIdTextWrapper = new Label();
             SuspendLayout();
             // 
             // btnSave
@@ -54,7 +55,7 @@
             btnSave.Margin = new Padding(5, 6, 5, 6);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(270, 50);
-            btnSave.TabIndex = 12;
+            btnSave.TabIndex = 4;
             btnSave.Text = "SAVE";
             btnSave.UseVisualStyleBackColor = false;
             // 
@@ -67,7 +68,7 @@
             lbTitle.Name = "lbTitle";
             lbTitle.RightToLeft = RightToLeft.Yes;
             lbTitle.Size = new Size(635, 36);
-            lbTitle.TabIndex = 9;
+            lbTitle.TabIndex = 6;
             lbTitle.Text = "TRACK PRODUCTION AND DELIVERY";
             lbTitle.TextAlign = ContentAlignment.TopCenter;
             // 
@@ -84,17 +85,17 @@
             btnCancel.Margin = new Padding(5, 6, 5, 6);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(270, 50);
-            btnCancel.TabIndex = 18;
+            btnCancel.TabIndex = 5;
             btnCancel.Text = "CANCEL";
             btnCancel.UseVisualStyleBackColor = false;
             // 
             // lbStartProduction
             // 
             lbStartProduction.ForeColor = SystemColors.ControlDarkDark;
-            lbStartProduction.Location = new Point(32, 123);
+            lbStartProduction.Location = new Point(32, 143);
             lbStartProduction.Name = "lbStartProduction";
             lbStartProduction.Size = new Size(270, 24);
-            lbStartProduction.TabIndex = 19;
+            lbStartProduction.TabIndex = 7;
             lbStartProduction.Text = "START PRODUCTION DATE";
             lbStartProduction.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -111,29 +112,29 @@
             // 
             dtStartProduction.CalendarMonthBackground = Color.FromArgb(15, 15, 15);
             dtStartProduction.Checked = false;
-            dtStartProduction.Location = new Point(32, 150);
+            dtStartProduction.Location = new Point(32, 170);
             dtStartProduction.Name = "dtStartProduction";
             dtStartProduction.ShowCheckBox = true;
             dtStartProduction.Size = new Size(600, 29);
-            dtStartProduction.TabIndex = 21;
+            dtStartProduction.TabIndex = 1;
             // 
             // dtEndProduction
             // 
             dtEndProduction.CalendarMonthBackground = Color.FromArgb(15, 15, 15);
             dtEndProduction.Checked = false;
-            dtEndProduction.Location = new Point(32, 242);
+            dtEndProduction.Location = new Point(32, 262);
             dtEndProduction.Name = "dtEndProduction";
             dtEndProduction.ShowCheckBox = true;
             dtEndProduction.Size = new Size(600, 29);
-            dtEndProduction.TabIndex = 24;
+            dtEndProduction.TabIndex = 2;
             // 
             // lbEndProduction
             // 
             lbEndProduction.ForeColor = SystemColors.ControlDarkDark;
-            lbEndProduction.Location = new Point(32, 215);
+            lbEndProduction.Location = new Point(32, 235);
             lbEndProduction.Name = "lbEndProduction";
             lbEndProduction.Size = new Size(270, 24);
-            lbEndProduction.TabIndex = 23;
+            lbEndProduction.TabIndex = 8;
             lbEndProduction.Text = "END PRODUCTION DATE";
             lbEndProduction.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -141,19 +142,19 @@
             // 
             dtDeliveryDate.CalendarMonthBackground = Color.FromArgb(15, 15, 15);
             dtDeliveryDate.Checked = false;
-            dtDeliveryDate.Location = new Point(32, 340);
+            dtDeliveryDate.Location = new Point(32, 360);
             dtDeliveryDate.Name = "dtDeliveryDate";
             dtDeliveryDate.ShowCheckBox = true;
             dtDeliveryDate.Size = new Size(600, 29);
-            dtDeliveryDate.TabIndex = 26;
+            dtDeliveryDate.TabIndex = 3;
             // 
             // lbDeliveryDate
             // 
             lbDeliveryDate.ForeColor = SystemColors.ControlDarkDark;
-            lbDeliveryDate.Location = new Point(32, 313);
+            lbDeliveryDate.Location = new Point(32, 333);
             lbDeliveryDate.Name = "lbDeliveryDate";
             lbDeliveryDate.Size = new Size(270, 24);
-            lbDeliveryDate.TabIndex = 25;
+            lbDeliveryDate.TabIndex = 9;
             lbDeliveryDate.Text = "DELIVERY DATE";
             lbDeliveryDate.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -162,10 +163,22 @@
             lbMachineId.AutoSize = true;
             lbMachineId.Font = new Font("Malgun Gothic", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lbMachineId.ForeColor = SystemColors.ControlLight;
-            lbMachineId.Location = new Point(32, 9);
+            lbMachineId.Location = new Point(119, 83);
             lbMachineId.Name = "lbMachineId";
             lbMachineId.Size = new Size(0, 20);
-            lbMachineId.TabIndex = 27;
+            lbMachineId.TabIndex = 21;
+            lbMachineId.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // lbMachineIdTextWrapper
+            // 
+            lbMachineIdTextWrapper.AutoSize = true;
+            lbMachineIdTextWrapper.ForeColor = SystemColors.ControlLight;
+            lbMachineIdTextWrapper.Location = new Point(32, 82);
+            lbMachineIdTextWrapper.Name = "lbMachineIdTextWrapper";
+            lbMachineIdTextWrapper.Size = new Size(90, 21);
+            lbMachineIdTextWrapper.TabIndex = 22;
+            lbMachineIdTextWrapper.Text = "MachineId:";
+            lbMachineIdTextWrapper.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // MachineLogForm
             // 
@@ -173,6 +186,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(15, 15, 15);
             ClientSize = new Size(666, 545);
+            Controls.Add(lbMachineIdTextWrapper);
             Controls.Add(lbMachineId);
             Controls.Add(dtDeliveryDate);
             Controls.Add(lbDeliveryDate);
@@ -207,5 +221,6 @@
         private DateTimePicker dtDeliveryDate;
         private Label lbDeliveryDate;
         private Label lbMachineId;
+        private Label lbMachineIdTextWrapper;
     }
 }

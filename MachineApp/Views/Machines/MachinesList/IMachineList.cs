@@ -12,10 +12,13 @@ namespace MachineApp.Views.Machines.MachinesList
         event Action? LogoutRequested;
         void DisplayMachines(List<Machine> machines);
         void ShowErrorOnLoad(string message);
-        void ShowErrorOnDelete(string message);
+        void ShowErrorMessageBox(string message);
         bool ShouldConfirmDeletion();
+        void SetUserInfo(string userInfo);
         void HideAdminControls();
         void CloseForm();
+        void ShowInfoMessageBox(string message);
+
         Machine? SelectedMachine { get; }
     }
 }

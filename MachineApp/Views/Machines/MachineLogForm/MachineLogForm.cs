@@ -27,15 +27,18 @@ namespace MachineApp.Views.Machines.MachineLogForm
 
         public void SetMachineId(int id) => lbMachineId.Text = id.ToString();
 
-        public void ShowInfoMessageBox(string msg) =>
-            MessageBox.Show(msg, "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
         public void FillForm(MachineLog log)
         {
             lbId.Text = log.Id.ToString();
             lbMachineId.Text = log.MachineId.ToString();
             InitilizeDateFields(log.StartProductionDate, log.EndProductionDate, log.DeliveryDate);
         }
+
+        public void ShowInfoMessageBox(string msg) =>
+            MessageBox.Show(msg, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        public void ShowErrorMessageBox(string msg) =>
+            MessageBox.Show(msg, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
         public void CloseForm() => this.Close();
 

@@ -18,18 +18,15 @@ namespace MachineApp.Views.Login
 
         public void LoginSucceeded(User? user)
         {
-            MessageBox.Show($"Welcome, {user?.Username}.", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(Constants.WelcomeMsg, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        public void ShowError(string message)
+        public void ShowErrorMessageBox(string message)
         {
-            MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        void ILogin.Close()
-        {
-            this.Close();
-        }
+        public void CloseForm() => Close();
 
         private void AttachEvents()
         {

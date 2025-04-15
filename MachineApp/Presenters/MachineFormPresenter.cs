@@ -21,37 +21,28 @@ namespace MachineApp.Presenters
             _view.MachineTypes = _repo.GetAllMachineTypes();
             _view.SaveMachineRequested += OnSaveMachineRequested;
 
-            HandleEditForm();
+            InitilizeEditForm();
         }
 
         private void OnSaveMachineRequested()
         {
             var machine = _view.GetMachineData();
-            var errors = ValidationErrors(machine);
 
-            if (errors.Count != 0)
+            if (!Session.IsAdmin)
             {
-                _view.ShowValidationErrors(errors);
+                _view.ShowErrorMessageBox(Constants.OnlyAdminAllowed);
                 return;
             }
 
-            if (_machineToEdit == null)
-            {
-                _repo.Insert(machine);
-                _view.ShowInfoMessageBox("Successfully created!");
+            if (!HandleInvalidForm(machine)) return;
 
-            }
-            else
-            {
-                _repo.Update(machine);
-                _view.ShowInfoMessageBox("Successfully updated!");
-            }
+            HandleValidForm(machine);
 
             _view.SetDialogResult(DialogResult.OK);
             _view.CloseForm();
         }
 
-        private void HandleEditForm()
+        private void InitilizeEditForm()
         {
             if (_machineToEdit != null)
             {
@@ -60,12 +51,35 @@ namespace MachineApp.Presenters
             }
         }
 
-        private static List<string> ValidationErrors(Machine machine)
+        private void HandleValidForm(Machine machine)
         {
-            return ValidationUtils.ValidateRequiredFields(
+            if (_machineToEdit == null)
+            {
+                _repo.Insert(machine);
+                _view.ShowInfoMessageBox(Constants.CreateSuccess);
+
+            }
+            else
+            {
+                _repo.Update(machine);
+                _view.ShowInfoMessageBox(Constants.UpdateSuccess);
+            }
+        }
+
+        private bool HandleInvalidForm(Machine machine)
+        {
+            var errors = ValidationUtils.ValidateRequiredFields(
                 (machine.Name, "Name"),
                 (machine.SerialNumber, "Serial Number")
             );
+
+            if (errors.Count != 0)
+            {
+                _view.ShowValidationErrors(errors);
+                return false;
+            }
+
+            return true;
         }
     }
 }

@@ -23,17 +23,17 @@ namespace MachineApp.Presenters
             {
                 var user = _repo.GetUser(_view.Username, _view.Password);
                 if (user == null)
-                    _view.ShowError("Invalid username or password.");
+                    _view.ShowErrorMessageBox(Constants.InvalidCredentials);
                 else
                 {
                     _view.LoginSucceeded(user);
                     Session.SetUpSession(user);
-                    _view.Close();
+                    _view.CloseForm();
                 }
             }
             catch (Exception ex)
             {
-                _view.ShowError($"Unexpected error: {ex.Message}");
+                _view.ShowErrorMessageBox(ex.Message);
             }
         }
     }

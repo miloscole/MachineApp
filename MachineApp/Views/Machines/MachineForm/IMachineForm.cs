@@ -12,6 +12,7 @@ namespace MachineApp.Views.Machines.MachineForm
         void SetFormTitle(string title);
         void ShowValidationErrors(List<string> errors);
         void ShowInfoMessageBox(string msg);
+        void ShowErrorMessageBox(string msg);
         List<MachineType> MachineTypes { set; }
         Machine GetMachineData();
     }

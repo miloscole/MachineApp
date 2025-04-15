@@ -1,4 +1,5 @@
-﻿using MachineApp.Models;
+﻿using MachineApp.Helpers;
+using MachineApp.Models;
 using MachineApp.Repositories.MachineLogRepository;
 using MachineApp.Views.Machines.MachineLogForm;
 
@@ -17,11 +18,11 @@ namespace MachineApp.Presenters
             _repo = repo;
             _machineId = machineId;
 
-            SetUpLogForm();
+            InitilizeLogForm();
             _view.SaveLogRequested += OnSaveLogRequested;
         }
 
-        private void SetUpLogForm()
+        private void InitilizeLogForm()
         {
             _machineLog = _repo.GetByMachineId(_machineId);
             _view.SetMachineId(_machineId);
@@ -31,11 +32,17 @@ namespace MachineApp.Presenters
 
         private void OnSaveLogRequested()
         {
+            if (!Session.IsAdmin)
+            {
+                _view.ShowErrorMessageBox(Constants.OnlyAdminAllowed);
+                return;
+            }
+
             var logData = _view.GetFormData();
             var allDatesUnset = AreAllDatesUnSet(logData);
 
-            if (allDatesUnset) HandleEmptyForm(logData);
-            else HandleFilledForm(logData);
+            if (allDatesUnset) HandleInvalidForm(logData);
+            else HandleValidForm(logData);
         }
 
         private static bool AreAllDatesUnSet(MachineLog log) =>
@@ -43,32 +50,32 @@ namespace MachineApp.Presenters
             log.EndProductionDate == null &&
             log.DeliveryDate == null;
 
-        private void HandleEmptyForm(MachineLog logData)
+        private void HandleInvalidForm(MachineLog logData)
         {
             if (_machineLog == null)
             {
-                _view.ShowInfoMessageBox("Please set at least one log to be able to Save.");
+                _view.ShowInfoMessageBox(Constants.EmptyLogInfoNew);
             }
             else
             {
                 _repo.Delete(logData.Id);
-                _view.ShowInfoMessageBox("All dates are unset and log is removed from DB.");
+                _view.ShowInfoMessageBox(Constants.EmptyLogInfoEdit);
                 _view.CloseForm();
             }
         }
 
-        private void HandleFilledForm(MachineLog logData)
+        private void HandleValidForm(MachineLog logData)
         {
             if (_machineLog == null)
             {
                 _repo.Insert(logData);
-                _view.ShowInfoMessageBox("Successfully saved!");
+                _view.ShowInfoMessageBox(Constants.CreateSuccess);
 
             }
             else
             {
                 _repo.Update(logData);
-                _view.ShowInfoMessageBox("Successfully updated!");
+                _view.ShowInfoMessageBox(Constants.UpdateSuccess);
             }
             _view.CloseForm();
         }

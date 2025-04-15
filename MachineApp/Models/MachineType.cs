@@ -3,7 +3,7 @@
     public class MachineType
     {
         public int Id { get; set; }
-        public string TypeName { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
+        public required string TypeName { get; set; }
+        public string? Description { get; set; }
     }
 }
