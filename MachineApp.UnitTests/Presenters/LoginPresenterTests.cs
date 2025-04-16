@@ -1,4 +1,5 @@
-﻿using MachineApp.Models;
+﻿using MachineApp.Helpers;
+using MachineApp.Models;
 using MachineApp.Presenters;
 using MachineApp.Repositories.UserRepository;
 using MachineApp.Views.Login;
@@ -9,15 +10,15 @@ namespace MachineApp.UnitTests.Presenters
     [TestClass]
     public class LoginPresenterTests
     {
-        private Mock<ILoginView> mockView = null!;
+        private Mock<ILogin> mockView = null!;
         private Mock<IUserRepo> mockRepo = null!;
         private LoginPresenter presenter = null!;
-        private readonly String userCredential = "credential";
+        private readonly string userCredential = "credential";
 
         [TestInitialize]
         public void Setup()
         {
-            mockView = new Mock<ILoginView>();
+            mockView = new Mock<ILogin>();
             mockRepo = new Mock<IUserRepo>();
             presenter = new LoginPresenter(mockView.Object, mockRepo.Object);
         }
@@ -25,41 +26,51 @@ namespace MachineApp.UnitTests.Presenters
         [TestMethod]
         public void ShowsError_When_InvalidCredentials()
         {
+            // Arrange  
             mockView.Setup(v => v.Username).Returns(userCredential);
             mockView.Setup(v => v.Password).Returns(userCredential);
             mockRepo.Setup(r => r.GetUser(userCredential, userCredential)).Returns((User?)null);
 
-            presenter.Login();
+            // Act  
+            mockView.Raise(v => v.LoginRequested += null);
 
-            mockView.Verify(v => v.ShowError("Invalid username or password."), Times.Once);
+            // Assert  
+            mockView.Verify(v => v.ShowErrorMessageBox(Constants.InvalidCredentials), Times.Once);
         }
 
         [TestMethod]
-        public void ShowsWelcome_When_ValidCredentials()
+        public void ShowsErrorMessage_When_LoginFails()
         {
-            var role = "Admin";
+            // Arrange  
+            mockView.Setup(v => v.Username).Returns(userCredential);
+            mockView.Setup(v => v.Password).Returns(userCredential);
+            mockRepo.Setup(r => r.GetUser(userCredential, userCredential)).Throws(new Exception("DB error"));
+
+            // Act  
+            mockView.Raise(v => v.LoginRequested += null);
+
+            // Assert  
+            mockView.Verify(v => v.ShowErrorMessageBox("DB error"), Times.Once);
+        }
+
+        [TestMethod]
+        public void LoginSucceeded_When_ValidCredentials()
+        {
+            // Arrange  
+            var user = new User { Username = userCredential, RoleName = "admin" };
 
             mockView.Setup(v => v.Username).Returns(userCredential);
             mockView.Setup(v => v.Password).Returns(userCredential);
-
-            var user = new User { Username = userCredential, Role = role };
             mockRepo.Setup(r => r.GetUser(userCredential, userCredential)).Returns(user);
 
-            presenter.Login();
+            // Act  
+            mockView.Raise(v => v.LoginRequested += null);
 
-            mockView.Verify(v => v.ShowWelcome(userCredential, role), Times.Once);
+            // Assert  
+            mockView.Verify(v => v.LoginSucceeded(user), Times.Once);
+            mockView.Verify(v => v.CloseForm(), Times.Once);
         }
 
-        [TestMethod]
-        public void ShowsUnexpectedError_When_RepositoryThrowsException()
-        {
-            mockView.Setup(v => v.Username).Returns(userCredential);
-            mockView.Setup(v => v.Password).Returns(userCredential);
-            mockRepo.Setup(r => r.GetUser(userCredential, userCredential)).Throws(new Exception("DB failure"));
-
-            presenter.Login();
-
-            mockView.Verify(v => v.ShowError(It.Is<string>(msg => msg.Contains("Unexpected error"))), Times.Once);
-        }
     }
 }
+

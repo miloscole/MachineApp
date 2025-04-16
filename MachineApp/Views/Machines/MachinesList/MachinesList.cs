@@ -20,7 +20,46 @@ namespace MachineApp.Views.Machines.MachinesList
 
         public void DisplayMachines(List<Machine> machines)
         {
-            dgvMachines.DataSource = null;
+            ResetGrid(dgvMachines);
+
+            dgvMachines.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = Constants.Id,
+                DataPropertyName = nameof(Machine.Id),
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                Width = 70
+            });
+
+            dgvMachines.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = Constants.MachineName,
+                DataPropertyName = nameof(Machine.Name),
+            });
+
+            dgvMachines.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = Constants.SerialNumber,
+                DataPropertyName = nameof(Machine.SerialNumber),
+            });
+
+            dgvMachines.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = Constants.Specifications,
+                DataPropertyName = nameof(Machine.Specifications),
+            });
+
+            dgvMachines.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = Constants.MachineType,
+                DataPropertyName = nameof(Machine.MachineType),
+            });
+
+            dgvMachines.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = Constants.StoredOn,
+                DataPropertyName = nameof(Machine.CreatedAt),
+            });
+
             dgvMachines.DataSource = machines;
         }
 
@@ -93,6 +132,13 @@ namespace MachineApp.Views.Machines.MachinesList
                 if (SelectedMachine != null)
                     MachineLogRequested?.Invoke(SelectedMachine.Id);
             };
+        }
+
+        private static void ResetGrid(DataGridView dgv)
+        {
+            dgv.DataSource = null;
+            dgv.AutoGenerateColumns = false;
+            dgv.Columns.Clear();
         }
     }
 }

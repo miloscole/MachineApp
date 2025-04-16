@@ -1,5 +1,4 @@
-﻿
-using MachineApp.Helpers;
+﻿using MachineApp.Helpers;
 using MachineApp.Models;
 using MachineApp.Repositories.MachineRepository;
 using MachineApp.Views.Machines.MachineForm;
@@ -18,10 +17,20 @@ namespace MachineApp.Presenters
             _repo = repo;
             _machineToEdit = machineToEdit;
 
-            _view.MachineTypes = _repo.GetAllMachineTypes();
+            try
+            {
+                _view.MachineTypes = _repo.GetAllMachineTypes();
+            }
+            catch (Exception ex)
+            {
+                _view.ShowErrorMessageBox(ex.Message);
+                _view.MachineTypes = new List<MachineType>();
+            }
+
+
             _view.SaveMachineRequested += OnSaveMachineRequested;
 
-            InitilizeEditForm();
+            if (_machineToEdit != null) InitilizeEditForm(_machineToEdit);
         }
 
         private void OnSaveMachineRequested()
@@ -42,27 +51,30 @@ namespace MachineApp.Presenters
             _view.CloseForm();
         }
 
-        private void InitilizeEditForm()
+        private void InitilizeEditForm(Machine machine)
         {
-            if (_machineToEdit != null)
-            {
-                _view.SetFormTitle("Edit Machine");
-                _view.FillForm(_machineToEdit);
-            }
+            _view.SetFormTitle(Constants.EditMachineTitle);
+            _view.FillForm(machine);
         }
 
         private void HandleValidForm(Machine machine)
         {
-            if (_machineToEdit == null)
+            try
             {
-                _repo.Insert(machine);
-                _view.ShowInfoMessageBox(Constants.CreateSuccess);
-
+                if (_machineToEdit == null)
+                {
+                    _repo.Insert(machine);
+                    _view.ShowInfoMessageBox(Constants.CreateSuccess);
+                }
+                else
+                {
+                    _repo.Update(machine);
+                    _view.ShowInfoMessageBox(Constants.UpdateSuccess);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                _repo.Update(machine);
-                _view.ShowInfoMessageBox(Constants.UpdateSuccess);
+                _view.ShowErrorMessageBox(ex.Message);
             }
         }
 

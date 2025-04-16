@@ -80,8 +80,6 @@ namespace MachineApp.Presenters
             form.ShowDialog();
         }
 
-
-
         private void HandleConfirmedDeletion(int id)
         {
             if (_view.ShouldConfirmDeletion())

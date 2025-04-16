@@ -17,8 +17,8 @@ namespace MachineApp.Views.Machines.MachineForm
             set
             {
                 ddTypes.DataSource = value;
-                ddTypes.DisplayMember = "TypeName";
-                ddTypes.ValueMember = "Id";
+                ddTypes.DisplayMember = nameof(MachineType.TypeName);
+                ddTypes.ValueMember = nameof(MachineType.Id);
             }
         }
 
