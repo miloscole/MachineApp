@@ -5,6 +5,8 @@ namespace MachineApp.Repositories.MachineRepository
 {
     public class MachineRepo : BaseRepository, IMachineRepo
     {
+        // SQL queries
+
         private const string InsertQuery = @"
             INSERT INTO machines 
                 (name, serial_number, specifications, machine_type_id)
@@ -25,14 +27,15 @@ namespace MachineApp.Repositories.MachineRepository
         private const string GetAllQuery = @"
             SELECT m.*, t.type_name 
             FROM machines m 
-            LEFT JOIN machine_types t ON m.machine_type_id = t.id";
+            LEFT JOIN machine_types t ON m.machine_type_id = t.id
+            ORDER BY m.updated_at DESC";
 
         private const string GetAllTypesQuery = "SELECT * FROM machine_types";
 
-        public void Insert(Machine machine)
-        {
+        // Public methods
+
+        public void Insert(Machine machine) =>
             ExecuteNonQuery(InsertQuery, CreateMachineParameters(machine));
-        }
 
         public void Update(Machine machine)
         {

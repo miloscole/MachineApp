@@ -17,8 +17,16 @@ namespace MachineApp.Presenters
             _view.LoginRequested += OnLoginRequested;
         }
 
+        //  Event Handlers
+
         private void OnLoginRequested()
         {
+            if (string.IsNullOrWhiteSpace(_view.Username) || string.IsNullOrWhiteSpace(_view.Password))
+            {
+                _view.ShowErrorMessageBox(Constants.ProvideCredentials);
+                return;
+            }
+
             try
             {
                 var user = _repo.GetUser(_view.Username, _view.Password);

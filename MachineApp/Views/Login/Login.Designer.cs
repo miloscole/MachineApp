@@ -37,6 +37,9 @@
             passUnderline = new Panel();
             btnClose = new Button();
             btnMinimize = new Button();
+            label2 = new Label();
+            lbMachineApp = new Label();
+            panLeftSide.SuspendLayout();
             SuspendLayout();
             // 
             // lbLogin
@@ -83,6 +86,8 @@
             // panLeftSide
             // 
             panLeftSide.BackColor = SystemColors.ControlDarkDark;
+            panLeftSide.Controls.Add(label2);
+            panLeftSide.Controls.Add(lbMachineApp);
             panLeftSide.Dock = DockStyle.Left;
             panLeftSide.Location = new Point(0, 0);
             panLeftSide.Margin = new Padding(4);
@@ -154,6 +159,26 @@
             btnMinimize.Text = "";
             btnMinimize.UseVisualStyleBackColor = true;
             // 
+            // label2
+            // 
+            label2.Font = new Font("Malgun Gothic", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(3, 226);
+            label2.Name = "label2";
+            label2.Size = new Size(316, 34);
+            label2.TabIndex = 12;
+            label2.Text = "[Manage Your Machines]";
+            label2.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // lbMachineApp
+            // 
+            lbMachineApp.Font = new Font("Malgun Gothic", 19F);
+            lbMachineApp.Location = new Point(2, 181);
+            lbMachineApp.Name = "lbMachineApp";
+            lbMachineApp.Size = new Size(316, 45);
+            lbMachineApp.TabIndex = 11;
+            lbMachineApp.Text = "MachineApp";
+            lbMachineApp.TextAlign = ContentAlignment.TopCenter;
+            // 
             // Login
             // 
             AllowDrop = true;
@@ -178,6 +203,7 @@
             Opacity = 0.9D;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Login";
+            panLeftSide.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -193,5 +219,7 @@
         private Panel passUnderline;
         private Button btnClose;
         private Button btnMinimize;
+        private Label label2;
+        private Label lbMachineApp;
     }
 }

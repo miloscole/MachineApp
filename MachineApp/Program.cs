@@ -22,14 +22,12 @@ namespace MachineApp
                 var loginView = factory.CreateLoginView();
                 loginView.ShowDialog();
 
-                if (Session.CurrentUser == null)
-                    break;
+                if (Session.CurrentUser == null) break;
 
                 var mainView = factory.CreateMachinesListView();
                 Application.Run(mainView);
 
-                if (!Session.IsLoggedIn)
-                    continue;
+                if (!Session.IsLoggedIn) continue;
 
                 break;
             }

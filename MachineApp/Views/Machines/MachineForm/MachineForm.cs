@@ -12,6 +12,8 @@ namespace MachineApp.Views.Machines.MachineForm
             AttachEvents();
         }
 
+        //  Public Properties
+
         public List<MachineType> MachineTypes
         {
             set
@@ -21,6 +23,8 @@ namespace MachineApp.Views.Machines.MachineForm
                 ddTypes.ValueMember = nameof(MachineType.Id);
             }
         }
+
+        //  Public Methods
 
         public void FillForm(Machine machine)
         {
@@ -43,30 +47,34 @@ namespace MachineApp.Views.Machines.MachineForm
             };
         }
 
+        public void SetFormTitle(string title) => lbTitle.Text = title;
+
         public void ShowValidationErrors(List<string> errors)
         {
             MessageBox.Show(
                 string.Join(Environment.NewLine, errors),
-                String.Empty,
+                string.Empty,
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Warning
             );
         }
 
         public void ShowInfoMessageBox(string msg) =>
-            MessageBox.Show(msg, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(msg, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         public void ShowErrorMessageBox(string msg) =>
-            MessageBox.Show(msg, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(msg, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        public void SetDialogResult(DialogResult result) => DialogResult = result;
 
         public void CloseForm() => Close();
-        public void SetDialogResult(DialogResult result) => DialogResult = result;
-        public void SetFormTitle(string title) => lbTitle.Text = title;
+
+        //  Private Helpers
 
         private void AttachEvents()
         {
             btnSave.Click += (s, e) => SaveMachineRequested?.Invoke();
             btnCancel.Click += (s, e) => Close();
+            btnClose.Click += (s, e) => Close();
         }
     }
 }

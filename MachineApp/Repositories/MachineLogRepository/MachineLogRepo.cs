@@ -5,7 +5,10 @@ namespace MachineApp.Repositories.MachineLogRepository
 {
     public class MachineLogRepo : BaseRepository, IMachineLogRepo
     {
-        private const string GetByMachineIdQuery = "SELECT * FROM machine_logs WHERE machine_id = @machineId";
+        // SQL queries
+
+        private const string GetByMachineIdQuery =
+            "SELECT * FROM machine_logs WHERE machine_id = @machineId";
 
         private const string InsertQuery = @"
             INSERT INTO machine_logs 
@@ -23,6 +26,8 @@ namespace MachineApp.Repositories.MachineLogRepository
 
         private const string DeleteQuery = "DELETE FROM machine_logs WHERE id = @id";
 
+        // Public methods
+
         public MachineLog? GetByMachineId(int machineId)
         {
             var parameters = new List<MySqlParameter> { new("@machineId", machineId) };
@@ -30,15 +35,11 @@ namespace MachineApp.Repositories.MachineLogRepository
             return reader.Read() ? ReadLog(reader) : null;
         }
 
-        public void Insert(MachineLog log)
-        {
+        public void Insert(MachineLog log) =>
             ExecuteNonQuery(InsertQuery, CreateLogParameters(log));
-        }
 
-        public void Update(MachineLog log)
-        {
+        public void Update(MachineLog log) =>
             ExecuteNonQuery(UpdateQuery, CreateLogParameters(log));
-        }
 
         public void Delete(int id)
         {

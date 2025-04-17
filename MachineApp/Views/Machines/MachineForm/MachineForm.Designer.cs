@@ -40,6 +40,7 @@
             btnCancel = new Button();
             lbType = new Label();
             lbId = new Label();
+            btnClose = new Button();
             SuspendLayout();
             // 
             // nameUnderline
@@ -186,12 +187,29 @@
             lbId.TabIndex = 23;
             lbId.Visible = false;
             // 
+            // btnClose
+            // 
+            btnClose.Cursor = Cursors.Hand;
+            btnClose.FlatAppearance.BorderSize = 0;
+            btnClose.FlatAppearance.MouseOverBackColor = SystemColors.ControlDarkDark;
+            btnClose.FlatStyle = FlatStyle.Flat;
+            btnClose.Font = new Font("Segoe MDL2 Assets", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnClose.ForeColor = Color.White;
+            btnClose.Location = new Point(629, 1);
+            btnClose.Margin = new Padding(4);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new Size(39, 35);
+            btnClose.TabIndex = 24;
+            btnClose.Text = "";
+            btnClose.UseVisualStyleBackColor = true;
+            // 
             // MachineForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(15, 15, 15);
             ClientSize = new Size(666, 545);
+            Controls.Add(btnClose);
             Controls.Add(lbId);
             Controls.Add(lbType);
             Controls.Add(btnCancel);
@@ -205,7 +223,7 @@
             Controls.Add(txtName);
             Controls.Add(lbTitle);
             Font = new Font("Malgun Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4);
             Name = "MachineForm";
             Opacity = 0.9D;
@@ -228,5 +246,6 @@
         private Button btnCancel;
         private Label lbType;
         private Label lbId;
+        private Button btnClose;
     }
 }

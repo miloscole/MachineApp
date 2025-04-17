@@ -17,6 +17,7 @@
         public const string EmptyLogInfoEdit = "All dates are unset and log is removed from DB.";
         public const string WelcomeMsg = "Welcome to the MachineApp!";
         public const string InvalidCredentials = "Invalid username or password!";
+        public const string ProvideCredentials = "Please fill in password and username!";
         public const string UserInfoTemplate = "Logged in as: {0} ({1})";
         public const string EditMachineTitle = "Edit Machine";
         public const string EmptyTable = "Nothing to show! ";

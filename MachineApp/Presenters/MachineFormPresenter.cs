@@ -27,11 +27,12 @@ namespace MachineApp.Presenters
                 _view.MachineTypes = new List<MachineType>();
             }
 
-
             _view.SaveMachineRequested += OnSaveMachineRequested;
 
             if (_machineToEdit != null) InitilizeEditForm(_machineToEdit);
         }
+
+        //  Event Handlers
 
         private void OnSaveMachineRequested()
         {
@@ -51,11 +52,15 @@ namespace MachineApp.Presenters
             _view.CloseForm();
         }
 
+        //  Initialization helpers
+
         private void InitilizeEditForm(Machine machine)
         {
             _view.SetFormTitle(Constants.EditMachineTitle);
             _view.FillForm(machine);
         }
+
+        //  Helper methods
 
         private void HandleValidForm(Machine machine)
         {

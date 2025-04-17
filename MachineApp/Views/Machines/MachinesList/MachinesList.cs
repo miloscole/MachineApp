@@ -18,6 +18,21 @@ namespace MachineApp.Views.Machines.MachinesList
             AttachEvents();
         }
 
+        //  Public Properties
+
+        public Machine? SelectedMachine
+        {
+            get
+            {
+                if (dgvMachines.SelectedRows.Count == 0)
+                    return null;
+
+                return dgvMachines.SelectedRows[0].DataBoundItem as Machine;
+            }
+        }
+
+        //  Public Methods
+
         public void DisplayMachines(List<Machine> machines)
         {
             ResetGrid(dgvMachines);
@@ -69,42 +84,24 @@ namespace MachineApp.Views.Machines.MachinesList
             lblGetMachinesError.Text = message;
         }
 
-        public void ShowErrorMessageBox(string message)
-        {
-            MessageBox.Show(message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
+        public void ShowErrorMessageBox(string message) =>
+            MessageBox.Show(message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-        public void ShowInfoMessageBox(string message)
-        {
-            MessageBox.Show(message, String.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
+        public void ShowInfoMessageBox(string message) =>
+            MessageBox.Show(message, string.Empty, MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         public bool ShouldConfirmDeletion()
         {
             var result = MessageBox.Show(
                 Constants.ConfirmDelete,
-                String.Empty,
+                string.Empty,
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question
             );
             return result == DialogResult.Yes;
         }
 
-        public Machine? SelectedMachine
-        {
-            get
-            {
-                if (dgvMachines.SelectedRows.Count == 0)
-                    return null;
-
-                return dgvMachines.SelectedRows[0].DataBoundItem as Machine;
-            }
-        }
-
-        public void SetUserInfo(string userInfoText)
-        {
-            lblUserInfo.Text = userInfoText;
-        }
+        public void SetUserInfo(string userInfoText) => lblUserInfo.Text = userInfoText;
 
         public void CloseForm() => Close();
 
@@ -113,8 +110,9 @@ namespace MachineApp.Views.Machines.MachinesList
             btnAdd.Hide();
             btnEdit.Hide();
             btnDelete.Hide();
-            btnLogs.Hide();
         }
+
+        //  Private Methods
 
         private void AttachEvents()
         {
@@ -133,6 +131,8 @@ namespace MachineApp.Views.Machines.MachinesList
                     MachineLogRequested?.Invoke(SelectedMachine.Id);
             };
         }
+
+        //  Private Helpers
 
         private static void ResetGrid(DataGridView dgv)
         {

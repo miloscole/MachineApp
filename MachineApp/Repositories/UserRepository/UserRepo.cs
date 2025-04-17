@@ -7,11 +7,15 @@ namespace MachineApp.Repositories.UserRepository
 {
     public class UserRepo : BaseRepository, IUserRepo
     {
+        // SQL queries
+
         private const string GetUserQuery = @"
             SELECT u.id, u.username, u.password, r.name 
             FROM users u 
             JOIN roles r ON u.role_id = r.id 
             WHERE u.username = @username";
+
+        // Public methods
 
         public User? GetUser(string username, string password)
         {

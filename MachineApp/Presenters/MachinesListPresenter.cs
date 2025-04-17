@@ -35,6 +35,8 @@ namespace MachineApp.Presenters
             _view.MachineLogRequested += (id) => OnMachineLogRequested(id);
         }
 
+        //  Event Handlers
+
         private void OnLoadMachines()
         {
             try
@@ -80,6 +82,11 @@ namespace MachineApp.Presenters
             form.ShowDialog();
         }
 
+        private void OnEditMachineRequested(Machine machine) => OnMachineFormRequested(machine);
+        private void OnAddMachineRequested() => OnMachineFormRequested();
+
+        //  Helper methods
+
         private void HandleConfirmedDeletion(int id)
         {
             if (_view.ShouldConfirmDeletion())
@@ -104,8 +111,5 @@ namespace MachineApp.Presenters
             if (result == DialogResult.OK)
                 OnLoadMachines();
         }
-
-        private void OnEditMachineRequested(Machine machine) => OnMachineFormRequested(machine);
-        private void OnAddMachineRequested() => OnMachineFormRequested();
     }
 }

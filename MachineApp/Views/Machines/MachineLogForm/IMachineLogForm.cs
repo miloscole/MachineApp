@@ -12,6 +12,7 @@ namespace MachineApp.Views.Machines.MachineLogForm
         void SetMachineId(int id);
         void ShowInfoMessageBox(string msg);
         void ShowErrorMessageBox(string msg);
+        void HideAdminControls();
         MachineLog GetFormData();
     }
 }

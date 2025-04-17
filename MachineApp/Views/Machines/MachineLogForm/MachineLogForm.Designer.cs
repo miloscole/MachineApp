@@ -40,6 +40,7 @@
             lbDeliveryDate = new Label();
             lbMachineId = new Label();
             lbMachineIdTextWrapper = new Label();
+            btnClose = new Button();
             SuspendLayout();
             // 
             // btnSave
@@ -180,12 +181,29 @@
             lbMachineIdTextWrapper.Text = "MachineId:";
             lbMachineIdTextWrapper.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // btnClose
+            // 
+            btnClose.Cursor = Cursors.Hand;
+            btnClose.FlatAppearance.BorderSize = 0;
+            btnClose.FlatAppearance.MouseOverBackColor = SystemColors.ControlDarkDark;
+            btnClose.FlatStyle = FlatStyle.Flat;
+            btnClose.Font = new Font("Segoe MDL2 Assets", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnClose.ForeColor = Color.White;
+            btnClose.Location = new Point(628, 2);
+            btnClose.Margin = new Padding(4);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new Size(39, 35);
+            btnClose.TabIndex = 25;
+            btnClose.Text = "";
+            btnClose.UseVisualStyleBackColor = true;
+            // 
             // MachineLogForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(15, 15, 15);
             ClientSize = new Size(666, 545);
+            Controls.Add(btnClose);
             Controls.Add(lbMachineIdTextWrapper);
             Controls.Add(lbMachineId);
             Controls.Add(dtDeliveryDate);
@@ -199,7 +217,7 @@
             Controls.Add(btnSave);
             Controls.Add(lbTitle);
             Font = new Font("Malgun Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4);
             Name = "MachineLogForm";
             Opacity = 0.9D;
@@ -222,5 +240,6 @@
         private Label lbDeliveryDate;
         private Label lbMachineId;
         private Label lbMachineIdTextWrapper;
+        private Button btnClose;
     }
 }

@@ -18,17 +18,14 @@ namespace MachineApp.Presenters
             _repo = repo;
             _machineId = machineId;
 
-            InitilizeLogForm();
+            InitializeLogForm();
+
+            if (!Session.IsAdmin) _view.HideAdminControls();
+
             _view.SaveLogRequested += OnSaveLogRequested;
         }
 
-        private void InitilizeLogForm()
-        {
-            _machineLog = _repo.GetByMachineId(_machineId);
-            _view.SetMachineId(_machineId);
-
-            if (_machineLog != null) _view.FillForm(_machineLog);
-        }
+        //  Event Handlers
 
         private void OnSaveLogRequested()
         {
@@ -39,13 +36,25 @@ namespace MachineApp.Presenters
             }
 
             var logData = _view.GetFormData();
-            var allDatesUnset = AreAllDatesUnSet(logData);
+            var allDatesUnset = AreAllDatesUnset(logData);
 
             if (allDatesUnset) HandleInvalidForm(logData);
             else HandleValidForm(logData);
         }
 
-        private static bool AreAllDatesUnSet(MachineLog log) =>
+        //  Initialization helpers
+
+        private void InitializeLogForm()
+        {
+            _machineLog = _repo.GetByMachineId(_machineId);
+            _view.SetMachineId(_machineId);
+
+            if (_machineLog != null) _view.FillForm(_machineLog);
+        }
+
+        //  Helper methods
+
+        private static bool AreAllDatesUnset(MachineLog log) =>
             log.StartProductionDate == null &&
             log.EndProductionDate == null &&
             log.DeliveryDate == null;
